@@ -1,0 +1,23 @@
+<h2>Gerenciamento de Usuários</h2>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Senha</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of usuarios">
+      <td>{{ user.usuariosID }}</td>
+      <td>{{ user.username}}</td>
+      <td>{{ user.passoword }}</td>
+      <td>
+        <button (click)="editar(user)">Editar</button>
+        <button *ngIf="isAdmin" (click)="excluir(user.id)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

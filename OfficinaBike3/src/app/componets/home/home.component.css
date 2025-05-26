@@ -1,0 +1,34 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 80vh;
+  background-color: #fafafa;
+}
+
+.home-container h2 {
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.actions button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actions button:hover {
+  background-color: #1565c0;
+}
