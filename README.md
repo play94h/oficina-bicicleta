@@ -39,3 +39,6 @@ apenas usuários autenticados acessem determinadas funcionalidades.
 Comunicação Frontend <-> Backend
 A comunicação entre o Angular e o Spring Boot é feita por meio de requisições HTTP (usando o HttpClient),
 respeitando o padrão REST, o que torna o sistema escalável e modular.
+
+
+Alunos: Jefferson Henrique e Lucas Emanoel
