@@ -1,8 +1,30 @@
-<div class="home-container">
-  <h2>Bem-vindo, {{ nomeUsuario }}!</h2>
+<h2>Bem-vindo, {{ nomeUsuario }}</h2>
 
-  <div class="actions">
-    <button (click)="irParaCompras()">🛒 Comprar Produtos</button>
-    <button (click)="irParaManutencao()">🔧 Solicitar Manutenção</button>
-  </div>
+<div class="botoes-home">
+  <button (click)="irParaCadastroCliente()">Cadastrar Cliente</button>
+  <button (click)="irParaCadastroProduto()">Cadastrar Produto</button>
+  <button *ngIf="isAdmin" (click)="irParaListarUsuarios()">Listar Usuários</button>
+  <button (click)="logout()">Sair</button>
+  
+
 </div>
+<h3>Produtos disponíveis</h3>
+
+<table *ngIf="produtos.length > 0">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Estoque</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let produto of produtos">
+      <td>{{ produto.nome }}</td>
+      <td>R$ {{ produto.preco | number: '1.2-2' }}</td>
+      <td>{{ produto.quantidadeEstoque }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="produtos.length === 0">Nenhum produto cadastrado.</p>

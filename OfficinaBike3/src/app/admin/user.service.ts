@@ -2,23 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  private api = 'http://localhost:8080/usuarios';
+  private apiUrl = 'http://localhost:8080/usuarios'; // ajuste conforme seu endpoint
 
   constructor(private http: HttpClient) {}
 
   listar(): Observable<any[]> {
-    return this.http.get<any[]>(this.api);
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  editar(usuarios: any): Observable<any> {
-    return this.http.put(`${this.api}/${usuarios.id}`, usuarios);
+  buscarPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  cadastrarUsuario(usuario: any): Observable<any> {
+    return this.http.post(this.apiUrl, usuario);
+  }
+
+  editar(usuario: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${usuario.usuarioId}`, usuario);
   }
 
   deletar(id: number): Observable<any> {
-    return this.http.delete(`${this.api}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

@@ -1,23 +1,38 @@
-<h2>Gerenciamento de Usuários</h2>
+<div class="list-container">
+  <header>
+    <h2>Usuários</h2>
+    <button class="btn-voltar" (click)="voltarHome()">Voltar</button>
+  </header>
 
-<table border="1" cellpadding="8">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Senha</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of usuarios">
-      <td>{{ user.usuariosID }}</td>
-      <td>{{ user.username}}</td>
-      <td>{{ user.passoword }}</td>
-      <td>
-        <button (click)="editar(user)">Editar</button>
-        <button *ngIf="isAdmin" (click)="excluir(user.id)">Excluir</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table *ngIf="usuarios.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.usuarioId }}</td>
+        <td>{{ usuario.username }}</td>
+        <td>{{ usuario.cargousuario }}</td>
+        <td>
+          <button class="btn-editar" (click)="editar(usuario)">Editar</button>
+          <button
+            class="btn-excluir"
+            *ngIf="isAdmin"
+            (click)="excluir(usuario.usuarioId)"
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="usuarios.length === 0" class="no-data">
+    Nenhum usuário encontrado.
+  </p>
+</div>

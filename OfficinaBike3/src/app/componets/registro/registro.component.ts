@@ -1,36 +1,60 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
+  selector: 'app-user-register',
   standalone: true,
-  selector: 'app-registro',
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
   templateUrl: './registro.component.html',
-  styleUrl:'./registro.component.css',
-  imports: [CommonModule, ReactiveFormsModule],
+  styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent {
-  registerForm: FormGroup;
+export class UserRegisterComponent {
+  userForm: FormGroup;
+  
+  
+  cargos: string[] = ['ADM', 'funcionario', 'cliente', 'tecnico']; 
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.registerForm = this.fb.group({
-      username: [''],
-      password: ['']
+  constructor(
+    private fb: FormBuilder,
+    private AuthService: AuthService,
+    private router: Router
+  ) {
+    this.userForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(25)]],
+      cargousuario: ['cliente', Validators.required] 
     });
   }
 
   onSubmit() {
-    this.authService.register(this.registerForm.value).subscribe({
-      next: () => {
-        alert('Cadastro realizado com sucesso!');
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Erro no cadastro');
-      }
-    });
+    if (this.userForm.valid) {
+      const novoUsuario = {
+        username: this.userForm.value.username,
+        password: this.userForm.value.password,
+        cargousuario: this.userForm.value.cargousuario
+      };
+
+      this.AuthService.register(novoUsuario).subscribe({
+        next: () => {
+          alert('Usuário cadastrado com sucesso!');
+          this.userForm.reset({ cargousuario: 'cliente' });
+          this.router.navigate(['/admin/usuarios']); // ou outra rota
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Erro ao cadastrar usuário!');
+        }
+      });
+    } else {
+      alert('Preencha todos os campos corretamente.');
+    }
+  }
+
+  voltarHome() {
+    this.router.navigate(['/home']);
   }
 }

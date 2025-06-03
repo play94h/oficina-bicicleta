@@ -7,14 +7,14 @@ e solicitações de manutenção de forma digital, acessível e segura.
 Funcionalidades para o Usuário
 - Cadastro e login de usuários
 - Página inicial personalizada com boas-vindas
-- Solicitação de serviços de manutenção para sua bicicleta
-- Compra de produtos e peças disponíveis na loja
-Funcionalidades para o Administrador
-- Acesso à área administrativa
-- Cadastro, edição e exclusão de usuários
+- Solicitação de serviços de manutenção para sua bicicleta em andamento.
+- Compra de produtos e peças disponíveis na loja em andamento.
+Funcionalidades para o Administrador em andamento.
+- Acesso à área administrativa em andamento.
+- Cadastro, edição e exclusão de usuários em andamento.
 - Cadastro, edição e remoção de produtos e serviços
-- Controle de estoque e vendas
-- Visualização de solicitações de manutenção feitas pelos clientes
+- Controle de estoque e vendas em andamento. 
+- Visualização de solicitações de manutenção feitas pelos clientes em andamento.
 Tecnologias Utilizadas
 Frontend (Interface do Usuário):
 - Angular 18 (framework moderno baseado em TypeScript)

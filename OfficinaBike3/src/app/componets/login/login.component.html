@@ -1,25 +1,16 @@
-<div class="auth-container">
-  <h2>Entrar</h2>
+<div class="login-container">
+  <h2>Login</h2>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <label for="username">Email:</label>
-    <input id="username" formControlName="username" type="email" />
-
-    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error">
-      Email inválido
-    </div>
-
+    <label for="username">Usuario:</label>
+    <input id="username" type="username" formControlName="username" required>
+    
     <label for="password">Senha:</label>
-    <input id="password" formControlName="password" type="password" />
+    <input id="password" type="password" formControlName="password" required>
 
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
-      Senha é obrigatória
-    </div>
-
-    <button type="submit" class="btn-primary">Entrar</button>
+    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
   </form>
 
-  
-    <button class="btn-link" type="button" routerLink="/registro">Cadastre-se</button>
-  
+  <p>Ainda não tem conta?</p>
+  <button (click)="irParaCadastro()">Cadastrar</button>
 </div>

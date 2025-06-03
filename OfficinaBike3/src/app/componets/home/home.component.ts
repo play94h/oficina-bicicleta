@@ -1,31 +1,53 @@
+
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ProdutoService } from '../produto-register/produto-service/produto.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
 
 @Component({
-  standalone: true,
   selector: 'app-home',
-  imports: [CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule], 
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  nomeUsuario: string = 'Usuário';
+  nomeUsuario = 'Usuário';
+  isAdmin: boolean = false;
+  produtos: any[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private produtoService: ProdutoService) {}
 
-  ngOnInit(): void {
-    const nome = localStorage.getItem('nome') || localStorage.getItem('username');
-    if (nome) {
-      this.nomeUsuario = nome;
-    }
+  irParaCadastroCliente() {
+    this.router.navigate(['/cadastro-cliente']);
   }
 
-  irParaCompras() {
-    this.router.navigate(['/user/compras']);
+  irParaCadastroProduto() {
+    this.router.navigate(['/cadastro-produto']);
+  }
+  irParaListarUsuarios(){
+    this.router.navigate(['/admin/usuarios']);
+  }
+  
+    ngOnInit() {
+
+    this.nomeUsuario = localStorage.getItem('username') || 'Usuário';
+    const role = localStorage.getItem('usuarioRole');
+    this.isAdmin = role === 'ADM';
+    this.carregarProdutos();
+
   }
 
-  irParaManutencao() {
-    this.router.navigate(['/user/manutencao']);
+  carregarProdutos() {
+    this.produtoService.listarProdutos().subscribe({
+      next: (res) => this.produtos = res,
+      error: (err) => console.error('Erro ao carregar produtos:', err)
+    });
   }
+
+  logout() {
+  localStorage.clear();
+  this.router.navigate(['/login']);
+  }
+
 }

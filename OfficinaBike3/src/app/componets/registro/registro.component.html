@@ -1,12 +1,72 @@
-<h2>Cadastro</h2>
+<div class="auth-container">
+  <h2>Cadastro de Usuário</h2>
 
-<br><br>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <label>Nome:</label>
-  <input formControlName="username" type="text">
-  <br>
-  <label>Senha:</label>
-  <input formControlName="password" type="password">
-  <br>
-  <button type="submit">Cadastrar</button>
-</form>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label for="username">Username:</label>
+    <input
+      id="username"
+      type="text"
+      formControlName="username"
+      placeholder="Insira um nome de usuário"
+    />
+    <div
+      *ngIf="
+        userForm.get('username')?.invalid && userForm.get('username')?.touched
+      "
+      class="error"
+    >
+      <span *ngIf="userForm.get('username')?.errors?.['required']">
+        Username é obrigatório.
+      </span>
+      <span *ngIf="userForm.get('username')?.errors?.['minlength']">
+        Deve ter ao menos 3 caracteres.
+      </span>
+      <span *ngIf="userForm.get('username')?.errors?.['maxlength']">
+        Máximo de 20 caracteres.
+      </span>
+    </div>
+
+    <label for="password">Senha:</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      placeholder="Insira sua senha"
+    />
+    <div
+      *ngIf="
+        userForm.get('password')?.invalid && userForm.get('password')?.touched
+      "
+      class="error"
+    >
+      <span *ngIf="userForm.get('password')?.errors?.['required']">
+        Senha é obrigatória.
+      </span>
+      <span *ngIf="userForm.get('password')?.errors?.['minlength']">
+        Deve ter ao menos 6 caracteres.
+      </span>
+      <span *ngIf="userForm.get('password')?.errors?.['maxlength']">
+        Máximo de 25 caracteres.
+      </span>
+    </div>
+
+    <label for="cargousuario">Cargo do Usuário:</label>
+    <select id="cargousuario" formControlName="cargousuario">
+      <option *ngFor="let c of cargos" [value]="c">{{ c }}</option>
+    </select>
+    <div
+      *ngIf="
+        userForm.get('cargousuario')?.invalid &&
+        userForm.get('cargousuario')?.touched
+      "
+      class="error"
+    >
+      Selecione um cargo.
+    </div>
+
+    <button type="submit">Cadastrar</button>
+    <button type="button" class="btn-link" (click)="voltarHome()">
+      Voltar para Home
+    </button>
+  </form>
+</div>
